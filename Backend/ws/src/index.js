@@ -1,34 +1,38 @@
 import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
-import { User } from "./User.js";
 
 const app = express();
+const server = http.createServer(app); // HTTP Server
+const wss = new WebSocketServer({ noServer: true }); // WebSocket Server (No Direct Port)
 
-// Create an HTTP server
-const server = http.createServer(app);
-
-// Attach WebSocket server to the same HTTP server
-const wss = new WebSocketServer({ server });
+// WebSocket Upgrade Handling
+server.on("upgrade", (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
+    wss.emit("connection", ws, request);
+  });
+});
 
 wss.on("connection", (ws) => {
   console.log("WebSocket client connected");
 
-  const user = new User(ws);
-  user.initHandlers();
+  ws.on("message", (message) => {
+    console.log("Received:", message.toString());
+    ws.send("Echo: " + message);
+  });
 
   ws.on("close", () => {
-    user.destroy();
+    console.log("WebSocket disconnected");
   });
 });
 
-// Example Express route
+// Example Express Route (For HTTP Requests)
 app.get("/", (req, res) => {
-  res.send("Hello from the combined HTTP & WebSocket server!");
+  res.send("Express + WebSocket Server Running!");
 });
 
-// Use Render's assigned PORT (not manually set to 3000)
-const PORT =  4000;
+// Start the Server
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
