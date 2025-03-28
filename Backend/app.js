@@ -22,16 +22,16 @@ app.use(cors())
 
 
 app.get('/',(req,res)=>{
-     res.send("Api is runing");
+     res.send("Apcadsi is runing");
 })
-
-app.use('/api/v1',authRoutes)
-
 app.get('/ws',(req,res)=>{
     // console.log("ws connceted");
     res.send("on ws")
     
 })
+
+app.use('/api/v1',authRoutes)
+
 
 app.listen(PORT,()=>{
     console.log("server is runng ar "+ PORT)
