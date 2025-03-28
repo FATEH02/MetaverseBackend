@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://metaverse_85ig_user:IiYlnTqzeoApUjrrGfSp6qzFrY7XnwDv@dpg-cvj1j66uk2gs73b0korg-a.singapore-postgres.render.com/metaverse_85ig"
 }
 
 //USERMODEL to store model
