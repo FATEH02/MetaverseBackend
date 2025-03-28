@@ -27,6 +27,11 @@ app.get('/',(req,res)=>{
 
 app.use('/api/v1',authRoutes)
 
+app.use('/ws',()=>{
+    console.log("ws connceted");
+    
+})
+
 app.listen(PORT,()=>{
     console.log("server is runng ar "+ PORT)
 })
