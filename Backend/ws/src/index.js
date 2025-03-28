@@ -1,6 +1,8 @@
 import { User } from "./User.js";
 import { WebSocketServer } from 'ws';
 const wss = new WebSocketServer({ port: 3000 });
+console.log("starting index.js");
+
 wss.on('connection', function connection(ws) {
     console.log("connected");
     
