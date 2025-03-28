@@ -27,7 +27,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/v1',authRoutes)
 
-app.use('/ws',()=>{
+app.get('/ws',()=>{
     console.log("ws connceted");
     
 })
