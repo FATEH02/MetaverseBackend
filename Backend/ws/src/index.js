@@ -5,11 +5,11 @@ import { User } from "./User.js";
 
 const app = express();
 
-// Create an HTTP server from the Express app.
+// Create an HTTP server
 const server = http.createServer(app);
 
-// Create the WebSocket server and specify a path.
-const wss = new WebSocketServer({ server, path: "/ws" });
+// Attach WebSocket server to the same HTTP server
+const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws) => {
   console.log("WebSocket client connected");
@@ -22,13 +22,13 @@ wss.on("connection", (ws) => {
   });
 });
 
-// Example Express route for HTTP requests.
+// Example Express route
 app.get("/", (req, res) => {
-  res.send("Hello from the combined HTTP and WebSocket server!");
+  res.send("Hello from the combined HTTP & WebSocket server!");
 });
 
-// Start the server.
-const PORT = process.env.PORT || 3000;
+// Use Render's assigned PORT (not manually set to 3000)
+const PORT =  4000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
